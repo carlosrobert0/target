@@ -1,15 +1,11 @@
 import { colors } from '@/theme/colors'
+import { TransactionTypes } from '@/utils/TransactionTypes'
 import { Feather, MaterialIcons } from '@expo/vector-icons'
 import { TouchableOpacity, View, Text, type TouchableOpacityProps } from 'react-native'
 
-export enum TransactionTypeEnum {
-  INCOME = 'income',
-  OUTCOME = 'outcome',
-}
-
 export type TransactionProps = {
   id: string
-  type: TransactionTypeEnum
+  type: TransactionTypes
   createdAt: string
   description?: string
 }
@@ -19,13 +15,13 @@ type Props = TouchableOpacityProps & {
 }
 
 export const typeIcons = {
-  [TransactionTypeEnum.INCOME]: 'arrow-up',
-  [TransactionTypeEnum.OUTCOME]: 'arrow-down',
+  [TransactionTypes.Input]: 'arrow-up',
+  [TransactionTypes.Output]: 'arrow-down',
 }
 
 const typeColors = {
-  [TransactionTypeEnum.INCOME]: colors.blue[500],
-  [TransactionTypeEnum.OUTCOME]: colors.red[400],
+  [TransactionTypes.Input]: colors.blue[500],
+  [TransactionTypes.Output]: colors.red[400],
 }
 
 export function Transaction({ data, ...rest }: Props) {

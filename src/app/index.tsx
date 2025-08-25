@@ -1,10 +1,7 @@
-import { Text, View, Image, FlatList, TouchableOpacity, StatusBar } from 'react-native'
+import { View, StatusBar } from 'react-native'
+import { router } from 'expo-router'
 
-import { Separator } from '@/components/Separator'
-
-import chevronRight from '@/assets/icons/chevron-right.png'
 import { HomeHeader } from '@/components/HomeHeader'
-import { Link } from 'expo-router'
 import { Target, type TargetProps } from '@/components/Target'
 import { List } from '@/components/List'
 import { Button } from '@/components/Button'
@@ -44,7 +41,9 @@ export default function Index() {
           title="Metas"
           data={targets}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Target data={item} />}
+          renderItem={({ item }) => (
+            <Target data={item} onPress={() => router.navigate(`/in-progress/${item.id}`)} />
+          )}
           emptyMessage="Você ainda não possui metas criadas."
           containerStyle={{ paddingHorizontal: 24, marginTop: 24 }}
         />

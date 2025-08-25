@@ -1,6 +1,5 @@
 import { colors } from '@/theme/colors'
 import { Feather } from '@expo/vector-icons'
-import { router } from 'expo-router'
 import { TouchableOpacity, View, Text, type TouchableOpacityProps } from 'react-native'
 
 export type TargetProps = {
@@ -17,10 +16,7 @@ type Props = TouchableOpacityProps & {
 
 export function Target({ data, ...rest }: Props) {
   return (
-    <TouchableOpacity
-      className="flex-row items-center pb-4"
-      {...rest}
-      onPress={() => router.push(`/in-progress/${data.id}`)}>
+    <TouchableOpacity className="flex-row items-center pb-4" {...rest}>
       <View className="flex-1">
         <Text className="text-sm font-medium text-black font-inter">{data.name}</Text>
         <Text className="text-gray-600 font-inter">

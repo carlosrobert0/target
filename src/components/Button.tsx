@@ -25,7 +25,7 @@ export function Button({
       disabled={isProcessing}
       activeOpacity={0.7}
       {...rest}>
-      <Text className="font-inter text-white text-sm">
+      <Text className="font-inter  text-white text-sm">
         {isProcessing ? <ActivityIndicator size="small" color={colors.white} /> : title}
       </Text>
     </TouchableOpacity>
