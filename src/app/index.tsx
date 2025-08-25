@@ -1,4 +1,4 @@
-import { Text, View, Image, FlatList, TouchableOpacity } from 'react-native'
+import { Text, View, Image, FlatList, TouchableOpacity, StatusBar } from 'react-native'
 
 import { Separator } from '@/components/Separator'
 
@@ -35,7 +35,8 @@ export default function Index() {
   ]
 
   return (
-    <View className="w-full h-full">
+    <View className="size-full">
+      <StatusBar barStyle="light-content" />
       <HomeHeader />
 
       <View className="justify-between flex-1">
@@ -48,7 +49,7 @@ export default function Index() {
           containerStyle={{ paddingHorizontal: 24, marginTop: 24 }}
         />
 
-        <Button title="Nova meta" />
+        <Button title="Nova meta" className="m-6" />
       </View>
     </View>
   )

@@ -21,7 +21,7 @@ export function Button({
 }: Props) {
   return (
     <TouchableOpacity
-      className={`bg-blue-500 h-12 rounded-lg items-center justify-center mx-6 mb-6 ${className}`}
+      className={`bg-blue-500 h-12 rounded-lg items-center justify-center ${className}`}
       disabled={isProcessing}
       activeOpacity={0.7}
       {...rest}>

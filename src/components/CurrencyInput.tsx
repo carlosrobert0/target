@@ -1,13 +1,23 @@
 import { colors } from '@/theme/colors'
-import { TextInput, TextInputProps } from 'react-native'
+import { View, Text } from 'react-native'
+import Input, { CurrencyInputProps } from 'react-native-currency-input'
 
-export function CurrencyInput({ ...rest }: TextInputProps) {
+type Props = CurrencyInputProps & {
+  label: string
+}
+
+export function CurrencyInput({ label, ...rest }: Props) {
   return (
-    <TextInput
-      {...rest}
-      keyboardType="numeric"
-      placeholderTextColor={colors.gray[550]}
-      className="text-black font-inter text-base border-b border-gray-400"
-    />
+    <View className="gap-2.5">
+      <Text className="text-gray-600 font-medium font-inter text-xs">{label}</Text>
+      <Input
+        {...rest}
+        placeholderTextColor={colors.gray[400]}
+        delimiter="."
+        separator=","
+        precision={2}
+        minValue={0}
+      />
+    </View>
   )
 }

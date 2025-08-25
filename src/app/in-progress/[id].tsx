@@ -1,14 +1,12 @@
 import { router } from 'expo-router'
-import { View, Text, TouchableOpacity } from 'react-native'
-import { Feather, MaterialIcons } from '@expo/vector-icons'
-import { colors } from '@/theme/colors'
+import { View } from 'react-native'
 import { Progress } from '@/components/Progress'
 import { List } from '@/components/List'
 import { Transaction, TransactionTypeEnum, type TransactionProps } from '@/components/Transaction'
 import { Button } from '@/components/Button'
 import { PageHeader } from '@/components/PageHeader'
 
-export default function TargetDetails() {
+export default function InProgress() {
   const transactions: TransactionProps[] = [
     {
       id: '1',
@@ -73,10 +71,14 @@ export default function TargetDetails() {
   ]
 
   return (
-    <View className="flex-1 p-6 gap-8 pt-16">
-      <PageHeader />
-
-      <Text className="text-2xl text-black font-bold font-inter">Apple Watch</Text>
+    <View className="flex-1 p-6 gap-8">
+      <PageHeader
+        title="Apple Watch"
+        rightButton={{
+          icon: 'edit',
+          onPress: () => null,
+        }}
+      />
 
       <Progress />
 
@@ -89,9 +91,9 @@ export default function TargetDetails() {
       />
 
       <Button
-        className={'mt-auto'}
+        className="mt-auto"
         title="Nova transação"
-        onPress={() => router.push('/new-transaction')}
+        onPress={() => router.push('/new-transaction/income')}
       />
     </View>
   )

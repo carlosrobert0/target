@@ -20,7 +20,7 @@ export function Target({ data, ...rest }: Props) {
     <TouchableOpacity
       className="flex-row items-center pb-4"
       {...rest}
-      onPress={() => router.push(`/target/${data.id}`)}>
+      onPress={() => router.push(`/in-progress/${data.id}`)}>
       <View className="flex-1">
         <Text className="text-sm font-medium text-black font-inter">{data.name}</Text>
         <Text className="text-gray-600 font-inter">
