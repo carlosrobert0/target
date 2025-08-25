@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "target",
-    "slug": "target",
-    "scheme": "target",
+    "name": "cofrin",
+    "slug": "cofrin",
+    "scheme": "cofrin",
     "version": "1.0.0",
     "android": {
-      "package": "com.carlos.target",
+      "package": "com.carlos.cofrin",
       "edgeToEdgeEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -13,11 +13,15 @@
       }
     },
     "ios": {
-      "bundleIdentifier": "com.carlos.target",
+      "bundleIdentifier": "com.carlos.cofrin",
       "icon": "./assets/ios-icon.png"
     },
+    "web": {
+      "bundler": "metro"
+    },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ]
   }
 }
