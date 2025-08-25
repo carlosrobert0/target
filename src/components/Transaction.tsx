@@ -1,10 +1,10 @@
-import { colors } from '@/theme/colors';
-import { Feather, MaterialIcons } from '@expo/vector-icons';
-import { TouchableOpacity, View, Text, type TouchableOpacityProps } from 'react-native';
+import { colors } from '@/theme/colors'
+import { Feather, MaterialIcons } from '@expo/vector-icons'
+import { TouchableOpacity, View, Text, type TouchableOpacityProps } from 'react-native'
 
 export enum TransactionTypeEnum {
   INCOME = 'income',
-  OUTCOME = 'outcome'
+  OUTCOME = 'outcome',
 }
 
 export type TransactionProps = {
@@ -20,12 +20,12 @@ type Props = TouchableOpacityProps & {
 
 export const typeIcons = {
   [TransactionTypeEnum.INCOME]: 'arrow-up',
-  [TransactionTypeEnum.OUTCOME]: 'arrow-down'
+  [TransactionTypeEnum.OUTCOME]: 'arrow-down',
 }
 
 const typeColors = {
   [TransactionTypeEnum.INCOME]: colors.blue[500],
-  [TransactionTypeEnum.OUTCOME]: colors.red[400]
+  [TransactionTypeEnum.OUTCOME]: colors.red[400],
 }
 
 export function Transaction({ data, ...rest }: Props) {
@@ -36,10 +36,8 @@ export function Transaction({ data, ...rest }: Props) {
         size={24}
         color={typeColors[data.type]}
       />
-      <View className='flex-1'>
-        <Text className="text-sm font-medium text-black font-inter">
-          {data.description}
-        </Text>
+      <View className="flex-1">
+        <Text className="text-sm font-medium text-black font-inter">{data.description}</Text>
         <Text className="text-gray-600 font-inter text-xs">
           {data.createdAt}
           {data?.description && ` • ${data.description}`}

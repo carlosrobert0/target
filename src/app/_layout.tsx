@@ -1,18 +1,18 @@
-import { Slot } from "expo-router";
-import { StatusBar, View } from "react-native";
-import "../../global.css";
+import { Slot } from 'expo-router'
+import { StatusBar, View } from 'react-native'
+import '../../global.css'
 import {
   Inter_400Regular,
   Inter_500Medium,
   Inter_700Bold,
-  useFonts
-} from "@expo-google-fonts/inter";
+  useFonts,
+} from '@expo-google-fonts/inter'
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
-    Inter_700Bold
+    Inter_700Bold,
   })
 
   if (!loaded && !error) {
@@ -23,5 +23,5 @@ export default function RootLayout() {
     <View className="flex-1 justify-center items-center">
       <Slot />
     </View>
-  );
+  )
 }

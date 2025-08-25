@@ -1,5 +1,5 @@
-import { colors } from "@/theme/colors";
-import { TextInput, TextInputProps } from "react-native";
+import { colors } from '@/theme/colors'
+import { TextInput, TextInputProps } from 'react-native'
 
 export function CurrencyInput({ ...rest }: TextInputProps) {
   return (

@@ -1,21 +1,33 @@
-import { View, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import { colors } from '@/theme/colors'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  ActivityIndicator,
+} from 'react-native'
 
 type Props = TouchableOpacityProps & {
-  title?: string
+  title: string
+  isProcessing?: boolean
   className?: string
 }
 
 export function Button({
-  title = "Nova meta",
-  className,
+  title = 'Nova meta',
+  isProcessing = false,
+  className = '',
   ...rest
 }: Props) {
   return (
     <TouchableOpacity
       className={`bg-blue-500 h-12 rounded-lg items-center justify-center mx-6 mb-6 ${className}`}
-      {...rest}
-    >
-      <Text className="font-inter text-white text-sm">{title}</Text>
+      disabled={isProcessing}
+      activeOpacity={0.7}
+      {...rest}>
+      <Text className="font-inter text-white text-sm">
+        {isProcessing ? <ActivityIndicator size="small" color={colors.white} /> : title}
+      </Text>
     </TouchableOpacity>
   )
 }

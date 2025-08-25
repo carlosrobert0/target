@@ -1,7 +1,7 @@
-import { View, TouchableOpacity } from "react-native";
-import { Feather, MaterialIcons } from "@expo/vector-icons";
-import { colors } from "@/theme/colors";
-import { router } from "expo-router";
+import { View, TouchableOpacity } from 'react-native'
+import { Feather, MaterialIcons } from '@expo/vector-icons'
+import { colors } from '@/theme/colors'
+import { router } from 'expo-router'
 
 export function PageHeader() {
   return (

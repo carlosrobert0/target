@@ -1,7 +1,7 @@
-import { colors } from '@/theme/colors';
-import { Feather } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { TouchableOpacity, View, Text, type TouchableOpacityProps } from 'react-native';
+import { colors } from '@/theme/colors'
+import { Feather } from '@expo/vector-icons'
+import { router } from 'expo-router'
+import { TouchableOpacity, View, Text, type TouchableOpacityProps } from 'react-native'
 
 export type TargetProps = {
   id?: string
@@ -18,13 +18,11 @@ type Props = TouchableOpacityProps & {
 export function Target({ data, ...rest }: Props) {
   return (
     <TouchableOpacity
-      className="flex-row items-center pb-4" {...rest}
-      onPress={() => router.push(`/target/${data.id}`)}
-    >
-      <View className='flex-1'>
-        <Text className="text-sm font-medium text-black font-inter">
-          {data.name}
-        </Text>
+      className="flex-row items-center pb-4"
+      {...rest}
+      onPress={() => router.push(`/target/${data.id}`)}>
+      <View className="flex-1">
+        <Text className="text-sm font-medium text-black font-inter">{data.name}</Text>
         <Text className="text-gray-600 font-inter">
           {data.percentage} • R$ {data.current} de R$ {data.target}
         </Text>
