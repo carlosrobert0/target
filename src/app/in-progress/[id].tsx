@@ -2,10 +2,10 @@ import { router } from 'expo-router'
 import { View } from 'react-native'
 import { Progress } from '@/components/Progress'
 import { List } from '@/components/List'
-import { Transaction, type TransactionProps } from '@/components/Transaction'
 import { Button } from '@/components/Button'
 import { PageHeader } from '@/components/PageHeader'
 import { TransactionTypes } from '@/utils/TransactionTypes'
+import { Transaction, type TransactionProps } from '@/components/Transaction'
 
 export default function InProgress() {
   const transactions: TransactionProps[] = [
@@ -77,7 +77,7 @@ export default function InProgress() {
         title="Apple Watch"
         rightButton={{
           icon: 'edit',
-          onPress: () => null,
+          onPress: () => router.push('/target/1'),
         }}
       />
 

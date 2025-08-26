@@ -48,7 +48,7 @@ export default function Index() {
           containerStyle={{ paddingHorizontal: 24, marginTop: 24 }}
         />
 
-        <Button title="Nova meta" className="m-6" />
+        <Button title="Nova meta" className="m-6" onPress={() => router.push('/target')} />
       </View>
     </View>
   )
