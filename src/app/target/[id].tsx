@@ -8,7 +8,7 @@ export default function TargetEditing() {
   const handleDeleteConfirm = () => {
     Alert.alert('Deletar meta', 'Tem certeza que deseja deletar essa meta?', [
       { text: 'Cancelar', style: 'cancel' },
-      { text: 'Deletar', style: 'destructive', onPress: () => console.log('Meta deletada') },
+      { text: 'Deletar', style: 'destructive', onPress: () => null },
     ])
   }
 
