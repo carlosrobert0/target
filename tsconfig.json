@@ -4,7 +4,8 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "jsx": "react-native"
   },
   "extends": "expo/tsconfig.base"
 }
