@@ -1,4 +1,4 @@
-import { View, StatusBar } from 'react-native'
+import { View } from 'react-native'
 import { router } from 'expo-router'
 
 import { HomeHeader } from '@/components/HomeHeader'
@@ -33,7 +33,6 @@ export default function Index() {
 
   return (
     <View className="size-full">
-      <StatusBar barStyle="light-content" />
       <HomeHeader />
 
       <View className="justify-between flex-1">

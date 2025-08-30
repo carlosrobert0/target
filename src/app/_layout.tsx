@@ -1,9 +1,10 @@
 import { Slot } from 'expo-router'
-import { View } from 'react-native'
+import { StatusBar } from 'react-native'
 import '../../global.css'
 import { migrate } from '@/database/migrate'
 import { SQLiteProvider } from 'expo-sqlite'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
+import * as SplashScreen from 'expo-splash-screen'
 
 import {
   Inter_400Regular,
@@ -13,6 +14,14 @@ import {
 } from '@expo-google-fonts/inter'
 
 import { Loading } from '@/components/Loading'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+})
+
+SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -21,17 +30,26 @@ export default function RootLayout() {
     Inter_700Bold,
   })
 
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hide()
+    }
+  }, [loaded])
+
   if (!loaded && !error) {
     return <Loading />
   }
 
   return (
-    <Suspense fallback={<Loading />}>
-      <SQLiteProvider onInit={migrate} databaseName="cofrin.db" useSuspense>
-        <View className="flex-1 justify-center items-center">
-          <Slot />
-        </View>
-      </SQLiteProvider>
-    </Suspense>
+    <>
+      <StatusBar barStyle="dark-content" translucent />
+      <Suspense fallback={<Loading />}>
+        <SQLiteProvider onInit={migrate} databaseName="cofrin.db" useSuspense>
+          <SafeAreaView className="flex-1 justify-center items-center">
+            <Slot />
+          </SafeAreaView>
+        </SQLiteProvider>
+      </Suspense>
+    </>
   )
 }

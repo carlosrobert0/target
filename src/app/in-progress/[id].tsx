@@ -72,7 +72,7 @@ export default function InProgress() {
   ]
 
   return (
-    <View className="flex-1 p-6 gap-8">
+    <View className="size-full p-6 pt-0 gap-8">
       <PageHeader
         title="Apple Watch"
         rightButton={{
@@ -83,19 +83,17 @@ export default function InProgress() {
 
       <Progress />
 
-      <List
-        title="Transações"
-        data={transactions}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Transaction data={item} />}
-        emptyMessage="Nenhuma transação cadastrada"
-      />
+      <View className="justify-between flex-1">
+        <List
+          title="Transações"
+          data={transactions}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <Transaction data={item} />}
+          emptyMessage="Nenhuma transação cadastrada"
+        />
 
-      <Button
-        className="mt-auto"
-        title="Nova transação"
-        onPress={() => router.push('/transaction/Input')}
-      />
+        <Button title="Nova transação" onPress={() => router.push('/transaction/Input')} />
+      </View>
     </View>
   )
 }
