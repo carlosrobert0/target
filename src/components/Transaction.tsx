@@ -5,13 +5,15 @@ import { TouchableOpacity, View, Text, type TouchableOpacityProps } from 'react-
 
 export type TransactionProps = {
   id: string
-  type: TransactionTypes
-  createdAt: string
+  value: string
+  date: string
   description?: string
+  type: TransactionTypes
 }
 
 type Props = TouchableOpacityProps & {
   data: TransactionProps
+  onRemove: (id: string) => void
 }
 
 export const typeIcons = {
@@ -24,7 +26,7 @@ const typeColors = {
   [TransactionTypes.Output]: colors.red[400],
 }
 
-export function Transaction({ data, ...rest }: Props) {
+export function Transaction({ data, onRemove, ...rest }: Props) {
   return (
     <TouchableOpacity className="flex flex-row items-center gap-2 pb-4" {...rest}>
       <Feather
@@ -33,13 +35,14 @@ export function Transaction({ data, ...rest }: Props) {
         color={typeColors[data.type]}
       />
       <View className="flex-1">
-        <Text className="text-sm font-medium text-black font-inter">{data.description}</Text>
-        <Text className="text-gray-600 font-inter text-xs">
-          {data.createdAt}
-          {data?.description && ` • ${data.description}`}
+        <Text className="text-sm font-medium text-black font-inter">{data.value}</Text>
+        <Text className="text-gray-600 font-inter text-xs" numberOfLines={1}>
+          {data.date} {data.description && `• ${data.description}`}
         </Text>
       </View>
-      <MaterialIcons name="close" size={18} color={colors.gray[600]} />
+      <TouchableOpacity onPress={() => onRemove(data.id)}>
+        <MaterialIcons name="close" size={18} color={colors.gray[600]} />
+      </TouchableOpacity>
     </TouchableOpacity>
   )
 }

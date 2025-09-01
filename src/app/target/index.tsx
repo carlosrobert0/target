@@ -2,14 +2,15 @@ import { Button } from '@/components/Button'
 import { CurrencyInput } from '@/components/CurrencyInput'
 import { Input } from '@/components/Input'
 import { PageHeader } from '@/components/PageHeader'
-import { Alert, View } from 'react-native'
+import { View } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
-import { useTargetDatabase, type TargetCreate } from '@/database/useTargetDatabase'
-import { router } from 'expo-router'
+import type { TargetCreate } from '@/@types/target'
+import { useCreateTarget } from '@/hooks/services/targets/useCreateTarget'
 
 export default function Target() {
+  const { mutate } = useCreateTarget()
   function handleSave(data: TargetCreate) {
-    createTarget(data)
+    mutate(data)
   }
 
   const {
@@ -17,24 +18,6 @@ export default function Target() {
     control,
     formState: { isSubmitting },
   } = useForm()
-
-  const { create } = useTargetDatabase()
-
-  async function createTarget({ name, amount }: TargetCreate) {
-    try {
-      await create({ name, amount })
-
-      Alert.alert('Nova Meta', 'Meta criada com sucesso!', [
-        {
-          text: 'Ok',
-          onPress: () => router.back(),
-        },
-      ])
-    } catch (error) {
-      Alert.alert('Erro', 'Não foi possível criar a meta.')
-      console.log(error)
-    }
-  }
 
   return (
     <View className="size-full px-6 gap-8">

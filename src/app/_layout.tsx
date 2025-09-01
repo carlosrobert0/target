@@ -5,6 +5,7 @@ import { migrate } from '@/database/migrate'
 import { SQLiteProvider } from 'expo-sqlite'
 import { Suspense, useEffect } from 'react'
 import * as SplashScreen from 'expo-splash-screen'
+import { QueryClientProvider } from '@tanstack/react-query'
 
 import {
   Inter_400Regular,
@@ -15,6 +16,10 @@ import {
 
 import { Loading } from '@/components/Loading'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { queryClient } from '@/lib/query-client'
+import { useOnlineManager } from '@/hooks/query/useOnlineManager'
+
+import { useAppState } from '@/hooks/query/useAppState'
 
 SplashScreen.setOptions({
   duration: 1000,
@@ -30,6 +35,9 @@ export default function RootLayout() {
     Inter_700Bold,
   })
 
+  useAppState()
+  useOnlineManager()
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hide()
@@ -44,11 +52,13 @@ export default function RootLayout() {
     <>
       <StatusBar barStyle="dark-content" translucent />
       <Suspense fallback={<Loading />}>
-        <SQLiteProvider onInit={migrate} databaseName="cofrin.db" useSuspense>
-          <SafeAreaView className="flex-1 justify-center items-center">
-            <Slot />
-          </SafeAreaView>
-        </SQLiteProvider>
+        <QueryClientProvider client={queryClient}>
+          <SQLiteProvider onInit={migrate} databaseName="cofrin.db" useSuspense>
+            <SafeAreaView className="flex-1 justify-center items-center">
+              <Slot />
+            </SafeAreaView>
+          </SQLiteProvider>
+        </QueryClientProvider>
       </Suspense>
     </>
   )

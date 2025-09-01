@@ -1,14 +1,7 @@
+import type { TargetProps } from '@/@types/target'
 import { colors } from '@/theme/colors'
 import { Feather } from '@expo/vector-icons'
 import { TouchableOpacity, View, Text, type TouchableOpacityProps } from 'react-native'
-
-export type TargetProps = {
-  id?: string
-  name: string
-  percentage: string
-  current: string
-  target: string
-}
 
 type Props = TouchableOpacityProps & {
   data: TargetProps

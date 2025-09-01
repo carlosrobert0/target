@@ -1,17 +1,27 @@
 import { View, Text } from 'react-native'
 
-export function Progress() {
+type SaveValue = {
+  current: string
+  target: string
+  percentage: string
+}
+
+type Props = {
+  data: SaveValue
+}
+
+export function Progress({ data }: Props) {
   return (
     <View>
       <View className="flex-row items-center w-full justify-between">
         <View>
           <Text className="text-gray-600 font-medium font-inter text-xs">Valor guardado</Text>
           <Text className="text-lg text-black font-medium font-inter">
-            R$ 580,00
-            <Text className="text-gray-600 font-medium font-inter text-sm"> de R$ 1.790,00</Text>
+            {data.current}
+            <Text className="text-gray-600 font-medium font-inter text-sm"> de {data.target}</Text>
           </Text>
         </View>
-        <Text className="text-blue-500 font-bold font-inter text-sm">25%</Text>
+        <Text className="text-blue-500 font-bold font-inter text-sm">{data.percentage}</Text>
       </View>
       <View className="my-4">
         <View className="h-1 bg-blue-500 w-[25%] z-50 rounded-full rounded-r-none" />

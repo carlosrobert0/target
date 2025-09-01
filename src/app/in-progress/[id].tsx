@@ -1,98 +1,70 @@
-import { router } from 'expo-router'
-import { View } from 'react-native'
+import { router, useLocalSearchParams } from 'expo-router'
+import { Alert, View } from 'react-native'
 import { Progress } from '@/components/Progress'
 import { List } from '@/components/List'
 import { Button } from '@/components/Button'
 import { PageHeader } from '@/components/PageHeader'
-import { TransactionTypes } from '@/utils/TransactionTypes'
-import { Transaction, type TransactionProps } from '@/components/Transaction'
+import { Transaction } from '@/components/Transaction'
+import { useGetTargetById } from '@/hooks/services/targets/useGetTargetById'
+import { useListTransactionsByTargetId } from '@/hooks/services/transactions/useListTransactionsByTargetId'
+import { numberToCurrency } from '@/utils/numberToCurrency'
+import { useRemoveTransactionById } from '@/hooks/services/transactions/useRemoveTransactionById'
 
 export default function InProgress() {
-  const transactions: TransactionProps[] = [
-    {
-      id: '1',
-      type: TransactionTypes.Input,
-      createdAt: '10/10/2023',
-      description: 'Salário',
-    },
-    {
-      id: '2',
-      type: TransactionTypes.Output,
-      createdAt: '11/10/2023',
-      description: 'Conta de luz',
-    },
-    {
-      id: '3',
-      type: TransactionTypes.Output,
-      createdAt: '12/10/2023',
-      description: 'Supermercado',
-    },
-    {
-      id: '4',
-      type: TransactionTypes.Input,
-      createdAt: '13/10/2023',
-      description: 'Freela',
-    },
-    {
-      id: '5',
-      type: TransactionTypes.Output,
-      createdAt: '14/10/2023',
-      description: 'Transporte',
-    },
-    {
-      id: '6',
-      type: TransactionTypes.Input,
-      createdAt: '15/10/2023',
-      description: 'Venda de item',
-    },
-    {
-      id: '7',
-      type: TransactionTypes.Output,
-      createdAt: '16/10/2023',
-      description: 'Lazer',
-    },
-    {
-      id: '8',
-      type: TransactionTypes.Input,
-      createdAt: '17/10/2023',
-      description: 'Bônus',
-    },
-    {
-      id: '9',
-      type: TransactionTypes.Output,
-      createdAt: '18/10/2023',
-      description: 'Assinatura de serviço',
-    },
-    {
-      id: '10',
-      type: TransactionTypes.Input,
-      createdAt: '19/10/2023',
-      description: 'Renda extra',
-    },
-  ]
+  const { id } = useLocalSearchParams<{ id: string }>()
+  const { data } = useGetTargetById(Number(id))
+  const { data: transactions } = useListTransactionsByTargetId(Number(id))
+  const { mutate: removeTransaction } = useRemoveTransactionById()
+
+  async function handleRemoveTransaction(id: number) {
+    Alert.alert('Remover transação', 'Tem certeza que deseja remover essa transação?', [
+      {
+        text: 'Cancelar',
+        style: 'cancel',
+      },
+      {
+        text: 'Remover',
+        onPress: () => {
+          removeTransaction(id, {
+            onSuccess: () => {
+              router.replace(`/in-progress/${data?.id}`)
+            },
+          })
+        },
+      },
+    ])
+  }
+
+  const details = {
+    current: numberToCurrency(data?.current),
+    target: numberToCurrency(data?.amount),
+    percentage: data?.percentage.toFixed(0).concat('%') || '0%',
+  }
 
   return (
     <View className="size-full p-6 pt-0 gap-8">
       <PageHeader
-        title="Apple Watch"
+        title={data?.name}
         rightButton={{
           icon: 'edit',
-          onPress: () => router.push('/target/1'),
+          onPress: () => router.push(`/target/${data?.id}`),
         }}
       />
 
-      <Progress />
+      <Progress data={details} />
 
       <View className="justify-between flex-1">
         <List
           title="Transações"
           data={transactions}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Transaction data={item} />}
+          renderItem={({ item }) => (
+            <Transaction data={item} onRemove={() => handleRemoveTransaction(Number(item.id))} />
+          )}
           emptyMessage="Nenhuma transação cadastrada"
         />
 
-        <Button title="Nova transação" onPress={() => router.push('/transaction/Input')} />
+        <Button title="Nova transação" onPress={() => router.push(`/transaction/${data.id}`)} />
       </View>
     </View>
   )
