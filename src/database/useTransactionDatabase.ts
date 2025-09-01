@@ -1,4 +1,4 @@
-import type { TransactionCreate, TransactionResponse } from '@/@types/transaction'
+import type { Summary, TransactionCreate, TransactionResponse } from '@/@types/transaction'
 import { useSQLiteContext } from 'expo-sqlite'
 
 export function useTransactionDatabase() {
@@ -48,9 +48,19 @@ export function useTransactionDatabase() {
     await statement.executeAsync()
   }
 
+  async function summary() {
+    return await database.getFirstAsync<Summary>(`
+      SELECT
+        COALESCE(SUM(CASE WHEN amount > 0 THEN amount ELSE 0 END), 0) AS input,
+        COALESCE(SUM(CASE WHEN amount < 0 THEN amount ELSE 0 END), 0) AS output
+      FROM transactions
+    `)
+  }
+
   return {
     create,
     remove,
+    summary,
     listTransactionsByTargetId,
     dropTable,
   }

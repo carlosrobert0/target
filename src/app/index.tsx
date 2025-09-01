@@ -8,14 +8,29 @@ import { List } from '@/components/List'
 import { Button } from '@/components/Button'
 import { Loading } from '@/components/Loading'
 import { useListTargets } from '@/hooks/services/targets/useFindAllTargets'
+import { useSummaryTransactions } from '@/hooks/services/transactions/useSummaryTransactions'
+import { numberToCurrency } from '@/utils/numberToCurrency'
 
 export default function Index() {
   const { data } = useListTargets()
+  const { data: summaryData } = useSummaryTransactions()
+
+  const summaryDataFormatted = {
+    total: numberToCurrency(summaryData?.total),
+    input: {
+      label: summaryData?.input.label,
+      value: numberToCurrency(summaryData?.input.value),
+    },
+    output: {
+      label: summaryData?.output.label,
+      value: numberToCurrency(summaryData?.output.value),
+    },
+  }
 
   return (
     <Suspense fallback={<Loading />}>
       <View className="size-full">
-        <HomeHeader />
+        <HomeHeader data={summaryDataFormatted} />
 
         <View className="justify-between flex-1">
           <List

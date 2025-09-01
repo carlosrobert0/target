@@ -11,3 +11,8 @@ export type TransactionResponse = {
   observation: string
   createdAt: string
 }
+
+export type Summary = {
+  input: number
+  output: number
+}
