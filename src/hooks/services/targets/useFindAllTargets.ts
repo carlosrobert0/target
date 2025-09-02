@@ -4,11 +4,11 @@ import { useQuery } from '@tanstack/react-query'
 import { Alert } from 'react-native'
 
 export function useListTargets() {
-  const { listByPercentage } = useTargetDatabase()
+  const { listByClosestTarget } = useTargetDatabase()
 
   async function fetchTargets() {
     try {
-      const response = await listByPercentage()
+      const response = await listByClosestTarget()
 
       if (!response) {
         return null

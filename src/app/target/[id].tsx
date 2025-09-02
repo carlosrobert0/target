@@ -8,7 +8,8 @@ import { useRemoveTargetById } from '@/hooks/services/targets/useRemoveTargetByI
 import { useUpdateTargetById } from '@/hooks/services/targets/useUpdateTargetById'
 import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { Controller, useForm } from 'react-hook-form'
-import { View, Alert } from 'react-native'
+import { Alert, StatusBar } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function TargetEditing() {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -34,10 +35,9 @@ export default function TargetEditing() {
     update(data)
   }
 
-  console.log(data)
-
   return (
-    <View className="size-full px-6 gap-8">
+    <SafeAreaView className="size-full px-6 gap-8" edges={['top']}>
+      <StatusBar barStyle="dark-content" translucent />
       <PageHeader
         title="Meta"
         subtitle="Economize para alcançar sua meta financeira."
@@ -76,6 +76,6 @@ export default function TargetEditing() {
       />
 
       <Button title="Salvar" className="mx-0" onPress={handleSubmit(onSubmit)} />
-    </View>
+    </SafeAreaView>
   )
 }

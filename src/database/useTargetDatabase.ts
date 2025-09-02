@@ -50,7 +50,7 @@ export function useTargetDatabase() {
     }
   }
 
-  async function listByPercentage() {
+  async function listByClosestTarget() {
     return database.getAllAsync<TargetResponse>(`
       SELECT 
         targets.id,
@@ -86,6 +86,6 @@ export function useTargetDatabase() {
     update,
     remove,
     removeAll,
-    listByPercentage,
+    listByClosestTarget,
   }
 }

@@ -2,10 +2,11 @@ import { Button } from '@/components/Button'
 import { CurrencyInput } from '@/components/CurrencyInput'
 import { Input } from '@/components/Input'
 import { PageHeader } from '@/components/PageHeader'
-import { View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import type { TargetCreate } from '@/@types/target'
 import { useCreateTarget } from '@/hooks/services/targets/useCreateTarget'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function Target() {
   const { mutate } = useCreateTarget()
@@ -20,7 +21,8 @@ export default function Target() {
   } = useForm()
 
   return (
-    <View className="size-full px-6 gap-8">
+    <SafeAreaView className="size-full px-6 gap-8" edges={['top']}>
+      <StatusBar barStyle="dark-content" translucent />
       <PageHeader title="" subtitle="Economize para alcançar sua meta financeira." />
 
       <Controller
@@ -57,6 +59,6 @@ export default function Target() {
         onPress={handleSubmit(handleSave)}
         isProcessing={isSubmitting}
       />
-    </View>
+    </SafeAreaView>
   )
 }

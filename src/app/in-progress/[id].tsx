@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from 'expo-router'
-import { Alert, View } from 'react-native'
+import { Alert, StatusBar, View } from 'react-native'
 import { Progress } from '@/components/Progress'
 import { List } from '@/components/List'
 import { Button } from '@/components/Button'
@@ -9,11 +9,13 @@ import { useGetTargetById } from '@/hooks/services/targets/useGetTargetById'
 import { useListTransactionsByTargetId } from '@/hooks/services/transactions/useListTransactionsByTargetId'
 import { numberToCurrency } from '@/utils/numberToCurrency'
 import { useRemoveTransactionById } from '@/hooks/services/transactions/useRemoveTransactionById'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { Loading } from '@/components/Loading'
 
 export default function InProgress() {
   const { id } = useLocalSearchParams<{ id: string }>()
   const { data } = useGetTargetById(Number(id))
-  const { data: transactions } = useListTransactionsByTargetId(Number(id))
+  const { data: transactions, isLoading } = useListTransactionsByTargetId(Number(id))
   const { mutate: removeTransaction } = useRemoveTransactionById()
 
   async function handleRemoveTransaction(id: number) {
@@ -41,8 +43,13 @@ export default function InProgress() {
     percentage: data?.percentage.toFixed(0).concat('%') || '0%',
   }
 
+  if (isLoading) {
+    return <Loading />
+  }
+
   return (
-    <View className="size-full p-6 pt-0 gap-8">
+    <SafeAreaView className="size-full p-6 pt-0 gap-8" edges={['top']}>
+      <StatusBar barStyle="dark-content" translucent />
       <PageHeader
         title={data?.name}
         rightButton={{
@@ -66,6 +73,6 @@ export default function InProgress() {
 
         <Button title="Nova transação" onPress={() => router.push(`/transaction/${data.id}`)} />
       </View>
-    </View>
+    </SafeAreaView>
   )
 }

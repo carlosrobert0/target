@@ -1,5 +1,4 @@
 import { Slot } from 'expo-router'
-import { StatusBar } from 'react-native'
 import '../../global.css'
 import { migrate } from '@/database/migrate'
 import { SQLiteProvider } from 'expo-sqlite'
@@ -15,11 +14,11 @@ import {
 } from '@expo-google-fonts/inter'
 
 import { Loading } from '@/components/Loading'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { queryClient } from '@/lib/query-client'
 import { useOnlineManager } from '@/hooks/query/useOnlineManager'
 
 import { useAppState } from '@/hooks/query/useAppState'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 SplashScreen.setOptions({
   duration: 1000,
@@ -49,17 +48,14 @@ export default function RootLayout() {
   }
 
   return (
-    <>
-      <StatusBar barStyle="dark-content" translucent />
-      <Suspense fallback={<Loading />}>
-        <QueryClientProvider client={queryClient}>
-          <SQLiteProvider onInit={migrate} databaseName="cofrin.db" useSuspense>
-            <SafeAreaView className="flex-1 justify-center items-center">
-              <Slot />
-            </SafeAreaView>
-          </SQLiteProvider>
-        </QueryClientProvider>
-      </Suspense>
-    </>
+    <Suspense fallback={<Loading />}>
+      <QueryClientProvider client={queryClient}>
+        <SQLiteProvider onInit={migrate} databaseName="cofrin.db" useSuspense>
+          <SafeAreaView className="flex-1 justify-center items-center" edges={['bottom']}>
+            <Slot />
+          </SafeAreaView>
+        </SQLiteProvider>
+      </QueryClientProvider>
+    </Suspense>
   )
 }

@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { router } from 'expo-router'
 
 import { HomeHeader } from '@/components/HomeHeader'

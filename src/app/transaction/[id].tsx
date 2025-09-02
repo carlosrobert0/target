@@ -1,5 +1,5 @@
 import { PageHeader } from '@/components/PageHeader'
-import { View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { TransactionType } from '@/components/TransactionType'
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
@@ -9,6 +9,7 @@ import { useForm, Controller } from 'react-hook-form'
 import type { TransactionCreate } from '@/@types/transaction'
 import { useLocalSearchParams } from 'expo-router'
 import { useCreateTransaction } from '@/hooks/services/transactions/useCreateTransaction'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function Transaction() {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -39,7 +40,8 @@ export default function Transaction() {
   }
 
   return (
-    <View className="flex-1 px-6 gap-8">
+    <SafeAreaView className="flex-1 px-6 gap-8" edges={['top']}>
+      <StatusBar barStyle="dark-content" translucent />
       <PageHeader
         title="Nova transação"
         subtitle="A cada valor guardado você fica mais próximo da sua meta. Se esforce para guardar e evitar retirar."
@@ -87,6 +89,6 @@ export default function Transaction() {
           isProcessing={isSubmitting}
         />
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
