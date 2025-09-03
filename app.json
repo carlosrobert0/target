@@ -6,6 +6,7 @@
     "version": "1.0.0",
     "android": {
       "package": "com.carlos.cofrin",
+      "versionCode": 1,
       "edgeToEdgeEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -22,7 +23,29 @@
     "plugins": [
       "expo-router",
       "expo-font",
-      "expo-sqlite"
-    ]
+      "expo-sqlite",
+      [
+        "expo-splash-screen",
+        {
+          "android": {
+            "image": "./assets/splash.png",
+            "resizeMode": "cover",
+            "backgroundColor": "#f1f5f5"
+          },
+          "ios": {
+            "image": "./assets/splash.png",
+            "resizeMode": "cover",
+            "backgroundColor": "#1e293b"
+          },
+          "imageWidth": 500
+        }
+      ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "77ade8e7-b799-481e-acc0-ee56b2942a20"
+      }
+    }
   }
 }

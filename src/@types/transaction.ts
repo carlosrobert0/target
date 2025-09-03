@@ -2,6 +2,7 @@ export type TransactionCreate = {
   target_id: number
   amount: number
   observation?: string
+  category?: string
 }
 
 export type TransactionResponse = {
@@ -9,6 +10,7 @@ export type TransactionResponse = {
   target_id: number
   amount: number
   observation: string
+  category: string
   createdAt: string
 }
 

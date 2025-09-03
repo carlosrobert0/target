@@ -17,6 +17,7 @@ export function useListTransactionsByTargetId(id: number) {
         date: formatDate(item.createdAt),
         description: item.observation,
         type: item.amount > 0 ? TransactionTypes.Input : TransactionTypes.Output,
+        category: item.category,
       }))
     },
     enabled: !!id,

@@ -28,25 +28,31 @@ export default function Index() {
   }
 
   return (
-    <Suspense fallback={<Loading />}>
-      <View className="size-full">
-        <HomeHeader data={summaryDataFormatted} />
+    <>
+      <StatusBar barStyle="light-content" translucent />
 
-        <View className="justify-between flex-1">
-          <List
-            title="Metas"
-            data={data}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <Target data={item} onPress={() => router.navigate(`/in-progress/${item.id}`)} />
-            )}
-            emptyMessage="Você ainda não possui metas criadas."
-            containerStyle={{ paddingHorizontal: 24, marginTop: 24 }}
-          />
+      <Suspense fallback={<Loading />}>
+        <View className="size-full">
+          <HomeHeader data={summaryDataFormatted} />
 
-          <Button title="Nova meta" className="m-6" onPress={() => router.push('/target')} />
+          <View className="justify-between flex-1">
+            <List
+              title="Metas"
+              data={data}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <Target data={item} onPress={() => router.navigate(`/in-progress/${item.id}`)} />
+              )}
+              emptyMessage="Você ainda não possui metas criadas."
+              containerStyle={{ paddingHorizontal: 24, marginTop: 24 }}
+            />
+
+            <View className="px-6 gap-3">
+              <Button title="Nova meta" onPress={() => router.push('/target')} />
+            </View>
+          </View>
         </View>
-      </View>
-    </Suspense>
+      </Suspense>
+    </>
   )
 }

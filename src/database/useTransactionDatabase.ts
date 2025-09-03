@@ -6,21 +6,22 @@ export function useTransactionDatabase() {
 
   async function create(data: TransactionCreate) {
     const statement = await database.prepareAsync(`
-      INSERT INTO transactions (target_id, amount, observation)
-      VALUES ($target_id, $amount, $observation)
+      INSERT INTO transactions (target_id, amount, observation, category)
+      VALUES ($target_id, $amount, $observation, $category)
     `)
 
     await statement.executeAsync({
       $amount: data.amount,
       $target_id: data.target_id,
       $observation: data.observation,
+      $category: data.category || null,
     })
   }
 
   async function listTransactionsByTargetId(id: number) {
     try {
       const transactions = await database.getAllAsync<TransactionResponse>(`
-        SELECT id, target_id, amount, observation, created_at AS createdAt FROM transactions WHERE target_id = ${id}
+        SELECT id, target_id, amount, observation, category, created_at AS createdAt FROM transactions WHERE target_id = ${id}
         ORDER BY createdAt DESC
       `)
 
@@ -48,6 +49,12 @@ export function useTransactionDatabase() {
     await statement.executeAsync()
   }
 
+  async function migrate() {
+    await database.execAsync(`
+      ALTER TABLE transactions ADD COLUMN category TEXT;
+    `)
+  }
+
   async function summary() {
     return await database.getFirstAsync<Summary>(`
       SELECT
@@ -57,11 +64,31 @@ export function useTransactionDatabase() {
     `)
   }
 
+  async function summaryByCategory() {
+    try {
+      const result = await database.getAllAsync<{ category: string; total: number }>(`
+        SELECT 
+          COALESCE(category, 'Sem categoria') as category,
+          SUM(amount) as total
+        FROM transactions 
+        WHERE amount < 0 
+        GROUP BY category 
+        ORDER BY total ASC
+      `)
+      return result
+    } catch (err) {
+      console.error('Erro ao buscar resumo por categoria:', err)
+      return []
+    }
+  }
+
   return {
     create,
     remove,
     summary,
+    summaryByCategory,
     listTransactionsByTargetId,
     dropTable,
+    migrate,
   }
 }

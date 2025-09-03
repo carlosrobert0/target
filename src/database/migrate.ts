@@ -17,6 +17,7 @@ export async function migrate(database: SQLiteDatabase) {
       target_id INTEGER NOT NULL,
       amount FLOAT NOT NULL,
       observation TEXT,
+      category TEXT,
       created_at timestamp NOT NULL DEFAULT current_timestamp,
       updated_at timestamp NOT NULL DEFAULT current_timestamp,
 

@@ -9,6 +9,7 @@ export type TransactionProps = {
   date: string
   description?: string
   type: TransactionTypes
+  category?: string
 }
 
 type Props = TouchableOpacityProps & {
@@ -37,7 +38,8 @@ export function Transaction({ data, onRemove, ...rest }: Props) {
       <View className="flex-1">
         <Text className="text-sm font-medium text-black font-inter">{data.value}</Text>
         <Text className="text-gray-600 font-inter text-xs" numberOfLines={1}>
-          {data.date} {data.description && `• ${data.description}`}
+          {data.date} {data.description && `- ${data.description}`}{' '}
+          {data.category && `- ${data.category}`}
         </Text>
       </View>
       <TouchableOpacity onPress={() => onRemove(data.id)}>

@@ -3,8 +3,10 @@ import { StatusBar, View } from 'react-native'
 import { TransactionType } from '@/components/TransactionType'
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
+import { Select } from '@/components/Select'
 import { CurrencyInput } from '@/components/CurrencyInput'
 import { TransactionTypes } from '@/utils/TransactionTypes'
+import { TransactionCategories } from '@/utils/TransactionCategories'
 import { useForm, Controller } from 'react-hook-form'
 import type { TransactionCreate } from '@/@types/transaction'
 import { useLocalSearchParams } from 'expo-router'
@@ -24,6 +26,7 @@ export default function Transaction() {
       amount: 0,
       observation: '',
       type: TransactionTypes.Input,
+      category: '',
     },
   })
 
@@ -31,11 +34,54 @@ export default function Transaction() {
 
   const { mutate } = useCreateTransaction()
 
+  // Opções do Select baseadas no enum TransactionCategories
+  const categoryOptions = [
+    { label: TransactionCategories.FOOD, value: TransactionCategories.FOOD, icon: 'coffee' },
+    {
+      label: TransactionCategories.TRANSPORT,
+      value: TransactionCategories.TRANSPORT,
+      icon: 'truck',
+    },
+    {
+      label: TransactionCategories.LEISURE,
+      value: TransactionCategories.LEISURE,
+      icon: 'sun',
+    },
+    { label: TransactionCategories.HEALTH, value: TransactionCategories.HEALTH, icon: 'heart' },
+    {
+      label: TransactionCategories.EDUCATION,
+      value: TransactionCategories.EDUCATION,
+      icon: 'book',
+    },
+    { label: TransactionCategories.HOUSING, value: TransactionCategories.HOUSING, icon: 'home' },
+    {
+      label: TransactionCategories.CLOTHING,
+      value: TransactionCategories.CLOTHING,
+      icon: 'shopping-bag',
+    },
+    {
+      label: TransactionCategories.ENTERTAINMENT,
+      value: TransactionCategories.ENTERTAINMENT,
+      icon: 'tv',
+    },
+    {
+      label: TransactionCategories.TECHNOLOGY,
+      value: TransactionCategories.TECHNOLOGY,
+      icon: 'smartphone',
+    },
+    {
+      label: TransactionCategories.OTHER,
+      value: TransactionCategories.OTHER,
+      icon: 'more-horizontal',
+    },
+  ]
+
   function handleSave(data: TransactionCreate) {
     mutate({
       target_id: Number(id),
       amount: type === TransactionTypes.Output ? data.amount * -1 : data.amount,
       observation: data.observation,
+      category: type === TransactionTypes.Output ? data.category : undefined,
     })
   }
 
@@ -81,6 +127,22 @@ export default function Transaction() {
             />
           )}
         />
+
+        {type === TransactionTypes.Output && (
+          <Controller
+            control={control}
+            name="category"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                label="Categoria"
+                placeholder="Selecione uma categoria"
+                value={value}
+                options={categoryOptions}
+                onValueChange={onChange}
+              />
+            )}
+          />
+        )}
 
         <Button
           title="Salvar"

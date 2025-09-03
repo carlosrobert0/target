@@ -19,6 +19,7 @@ import { useOnlineManager } from '@/hooks/query/useOnlineManager'
 
 import { useAppState } from '@/hooks/query/useAppState'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { StatusBar } from 'react-native'
 
 SplashScreen.setOptions({
   duration: 1000,
