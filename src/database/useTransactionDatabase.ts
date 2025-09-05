@@ -20,10 +20,15 @@ export function useTransactionDatabase() {
 
   async function listTransactionsByTargetId(id: number) {
     try {
-      const transactions = await database.getAllAsync<TransactionResponse>(`
-        SELECT id, target_id, amount, observation, category, created_at AS createdAt FROM transactions WHERE target_id = ${id}
-        ORDER BY createdAt DESC
-      `)
+      const transactions = await database.getAllAsync<TransactionResponse>(
+        `
+          SELECT id, target_id, amount, observation, category, created_at AS createdAt
+          FROM transactions
+          WHERE target_id = ?
+          ORDER BY createdAt DESC
+        `,
+        [id],
+      )
 
       return transactions
     } catch (err) {

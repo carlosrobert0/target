@@ -1,4 +1,3 @@
-import type { ComponentProps } from 'react'
 import { View, Text, ColorValue } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 

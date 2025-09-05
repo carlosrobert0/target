@@ -1,8 +1,9 @@
 import { useTransactionDatabase } from '@/database/useTransactionDatabase'
+import type { TransactionCategories } from '@/utils/TransactionCategories'
 import { useQuery } from '@tanstack/react-query'
 
 export interface CategorySummary {
-  category: string
+  category: TransactionCategories
   total: number
   percentage: number
 }
@@ -17,13 +18,11 @@ export function useSummaryByCategory() {
 
       if (result.length === 0) return []
 
-      // Calcular o total geral para percentuais
       const totalGeral = result.reduce((sum, item) => sum + Math.abs(item.total), 0)
 
-      // Converter para formato do gráfico e calcular percentuais
       const formattedData: CategorySummary[] = result.map((item) => ({
-        category: item.category,
-        total: Math.abs(item.total), // Valor absoluto para exibição
+        category: item.category as TransactionCategories,
+        total: Math.abs(item.total),
         percentage: totalGeral > 0 ? (Math.abs(item.total) / totalGeral) * 100 : 0,
       }))
 

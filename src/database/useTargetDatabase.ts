@@ -66,8 +66,9 @@ export function useTargetDatabase() {
   }
 
   async function show(id: number) {
-    return await database.getFirstAsync<TargetResponse>(`
-      SELECT 
+    const result = await database.getAllAsync<TargetResponse>(
+      `
+      SELECT
         targets.id,
         targets.name,
         targets.amount,
@@ -75,9 +76,13 @@ export function useTargetDatabase() {
         COALESCE((SUM((transactions.amount) / targets.amount)) * 100, 0) AS percentage
       FROM targets
       LEFT JOIN transactions ON targets.id = transactions.target_id
-      WHERE targets.id = ${id}
+      WHERE targets.id = ?
       GROUP BY targets.id, targets.name, targets.amount
-    `)
+    `,
+      [id],
+    )
+
+    return result[0]
   }
 
   return {

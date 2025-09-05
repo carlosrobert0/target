@@ -34,7 +34,6 @@ export default function Transaction() {
 
   const { mutate } = useCreateTransaction()
 
-  // Opções do Select baseadas no enum TransactionCategories
   const categoryOptions = [
     { label: TransactionCategories.FOOD, value: TransactionCategories.FOOD, icon: 'coffee' },
     {
