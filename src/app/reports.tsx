@@ -39,7 +39,7 @@ function ReportsContent() {
 
   if (isLoading && (!categoryData || categoryData.length === 0)) {
     return (
-      <SafeAreaView className="flex-1 bg-white justify-center items-center">
+      <SafeAreaView className="size-full bg-white justify-center items-center">
         <Loading />
       </SafeAreaView>
     )
@@ -47,7 +47,7 @@ function ReportsContent() {
 
   if (isCategoriesLoading || !categories) {
     return (
-      <SafeAreaView className="flex-1 bg-white justify-center items-center">
+      <SafeAreaView className="size-full bg-white justify-center items-center">
         <Loading />
       </SafeAreaView>
     )
