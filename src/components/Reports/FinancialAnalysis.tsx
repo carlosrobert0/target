@@ -48,16 +48,21 @@ export function FinancialAnalysis({
                   {numberToCurrency(recommendation.recommendedValue)}
                 </Text>
               </View>
-              <View className="w-full bg-gray-200 rounded-full h-3 mb-1">
+              <View className="w-full bg-gray-200 rounded-full h-3 mb-1 relative">
                 <View
                   className={`${colors.bg} h-3 rounded-full`}
                   style={{ width: `${actualPercentage}%` }}
                 />
+                <View
+                  className="absolute top-0 h-3 border-l-2 border-dashed border-gray-600"
+                  style={{ left: `${group.percentage}%` }}
+                />
               </View>
               <View className="flex-row justify-between">
-                <Text className={`text-sm ${colors.text}`}>Recomendado</Text>
+                <Text className={`text-sm ${colors.text}`}>Recomendado: {group.percentage}%</Text>
                 <Text className="text-sm text-gray-600">
-                  Atual: {numberToCurrency(recommendation.actualValue)}
+                  Atual: {actualPercentage.toFixed(1)}% (
+                  {numberToCurrency(recommendation.actualValue)})
                 </Text>
               </View>
             </View>

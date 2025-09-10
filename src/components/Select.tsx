@@ -43,7 +43,7 @@ export function Select({
         disabled={disabled}
         activeOpacity={0.7}>
         <Text
-          className={`text-base font-normal bg-background ${!selectedOption ? 'text-gray-600' : 'text-gray-100'}`}>
+          className={`text-base font-normal bg-background ${selectedOption ? 'text-black' : 'text-gray-400'}`}>
           {selectedOption ? selectedOption.label : placeholder}
         </Text>
         <Feather name="chevron-down" size={20} color={colors.gray[500]} />
