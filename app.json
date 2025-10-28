@@ -4,6 +4,7 @@
     "slug": "cofrin",
     "scheme": "cofrin",
     "version": "1.0.0",
+    "userInterfaceStyle": "automatic",
     "android": {
       "package": "com.carlos.cofrin",
       "versionCode": 1,
@@ -39,7 +40,8 @@
           },
           "imageWidth": 500
         }
-      ]
+      ],
+      "react-native-edge-to-edge"
     ],
     "extra": {
       "router": {},
