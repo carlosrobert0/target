@@ -26,6 +26,12 @@
       "expo-font",
       "expo-sqlite",
       [
+        "expo-notifications",
+        {
+          "color": "#3D44CD"
+        }
+      ],
+      [
         "expo-splash-screen",
         {
           "android": {
