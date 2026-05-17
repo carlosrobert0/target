@@ -5,5 +5,5 @@ type Props = {
 }
 
 export function Separator({ color }: Props) {
-  return <View className={`bg-[${color}] w-full h-[1px]`} />
+  return <View style={{ backgroundColor: color }} className="w-full h-[1px]" />
 }

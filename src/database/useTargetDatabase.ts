@@ -6,40 +6,37 @@ export function useTargetDatabase() {
 
   async function create(data: TargetCreate) {
     const statement = await database.prepareAsync(
-      'INSERT INTO targets (name, amount) VALUES ($name, $amount)',
+      `INSERT INTO targets (name, amount, target_date)
+       VALUES ($name, $amount, $target_date)`,
     )
-
-    statement.executeAsync({
+    await statement.executeAsync({
       $name: data.name,
       $amount: data.amount,
+      $target_date: data.target_date ?? null,
     })
   }
 
   async function update(id: number, data: Partial<TargetCreate>) {
     const statement = await database.prepareAsync(`
-      UPDATE targets 
-        SET 
-          name = COALESCE($name, name),
-          amount = COALESCE($amount, amount),
-          updated_at = CURRENT_TIMESTAMP 
+      UPDATE targets
+        SET
+          name        = COALESCE($name, name),
+          amount      = COALESCE($amount, amount),
+          target_date = $target_date,
+          updated_at  = CURRENT_TIMESTAMP
         WHERE id = $id
     `)
-
     await statement.executeAsync({
       $id: id,
-      $name: data.name,
-      $amount: data.amount,
+      $name: data.name ?? null,
+      $amount: data.amount ?? null,
+      $target_date: data.target_date ?? null,
     })
   }
 
   async function remove(id: number) {
-    const statement = await database.prepareAsync(`
-      DELETE FROM targets WHERE id = $id
-    `)
-
-    await statement.executeAsync({
-      $id: id,
-    })
+    const statement = await database.prepareAsync(`DELETE FROM targets WHERE id = $id`)
+    await statement.executeAsync({ $id: id })
   }
 
   async function removeAll() {
@@ -52,15 +49,17 @@ export function useTargetDatabase() {
 
   async function listByClosestTarget() {
     return database.getAllAsync<TargetResponse>(`
-      SELECT 
+      SELECT
         targets.id,
         targets.name,
         targets.amount,
+        targets.target_date,
         COALESCE(SUM(transactions.amount), 0) AS current,
         COALESCE((SUM((transactions.amount) / targets.amount)) * 100, 0) AS percentage
       FROM targets
       LEFT JOIN transactions ON targets.id = transactions.target_id
-      GROUP BY targets.id, targets.name, targets.amount
+      WHERE targets.archived_at IS NULL
+      GROUP BY targets.id, targets.name, targets.amount, targets.target_date
       ORDER BY percentage DESC
     `)
   }
@@ -72,12 +71,14 @@ export function useTargetDatabase() {
         targets.id,
         targets.name,
         targets.amount,
+        targets.target_date,
         COALESCE(SUM(transactions.amount), 0) AS current,
         COALESCE((SUM((transactions.amount) / targets.amount)) * 100, 0) AS percentage
       FROM targets
       LEFT JOIN transactions ON targets.id = transactions.target_id
       WHERE targets.id = ?
-      GROUP BY targets.id, targets.name, targets.amount
+        AND targets.archived_at IS NULL
+      GROUP BY targets.id, targets.name, targets.amount, targets.target_date
     `,
       [id],
     )

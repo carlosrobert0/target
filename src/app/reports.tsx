@@ -39,7 +39,7 @@ function ReportsContent() {
 
   if (isLoading && (!categoryData || categoryData.length === 0)) {
     return (
-      <SafeAreaView className="size-full bg-white justify-center items-center">
+      <SafeAreaView className="size-full bg-background dark:bg-gray-900 justify-center items-center">
         <Loading />
       </SafeAreaView>
     )
@@ -47,7 +47,7 @@ function ReportsContent() {
 
   if (isCategoriesLoading || !categories) {
     return (
-      <SafeAreaView className="size-full bg-white justify-center items-center">
+      <SafeAreaView className="size-full bg-background dark:bg-gray-900 justify-center items-center">
         <Loading />
       </SafeAreaView>
     )
@@ -89,7 +89,7 @@ function ReportsContent() {
   }
 
   return (
-    <SafeAreaView className="size-full px-6 bg-background">
+    <SafeAreaView className="size-full px-6 bg-background dark:bg-gray-900">
       <StatusBar barStyle="dark-content" translucent />
       <PageHeader title="Relatórios" subtitle="Análise dos seus gastos por categoria" />
 

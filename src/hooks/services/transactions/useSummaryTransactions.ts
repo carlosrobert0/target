@@ -7,9 +7,7 @@ export function useSummaryTransactions() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['summaryTransactions'],
     queryFn: async () => {
-      console.log('cheg')
       const res = await summary()
-      console.log(res)
 
       return {
         total: res.input + res.output,

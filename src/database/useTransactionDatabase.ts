@@ -4,32 +4,76 @@ import { useSQLiteContext } from 'expo-sqlite'
 export function useTransactionDatabase() {
   const database = useSQLiteContext()
 
-  async function create(data: TransactionCreate) {
+  async function create(data: TransactionCreate): Promise<number> {
     const statement = await database.prepareAsync(`
-      INSERT INTO transactions (target_id, amount, observation, category)
-      VALUES ($target_id, $amount, $observation, $category)
+      INSERT INTO transactions
+        (target_id, amount, observation, category, wallet_id, receipt_uri, occurred_at)
+      VALUES
+        ($target_id, $amount, $observation, $category, $wallet_id, $receipt_uri,
+         COALESCE($occurred_at, CURRENT_TIMESTAMP))
     `)
-
-    await statement.executeAsync({
+    const result = await statement.executeAsync({
       $amount: data.amount,
       $target_id: data.target_id,
       $observation: data.observation,
       $category: data.category || null,
+      $wallet_id: data.wallet_id ?? null,
+      $receipt_uri: data.receipt_uri ?? null,
+      $occurred_at: data.occurred_at ?? null,
     })
+    return result.lastInsertRowId
+  }
+
+  async function update(id: number, data: Partial<TransactionCreate>) {
+    const statement = await database.prepareAsync(`
+      UPDATE transactions SET
+        amount      = COALESCE($amount, amount),
+        observation = COALESCE($observation, observation),
+        category    = COALESCE($category, category),
+        wallet_id   = COALESCE($wallet_id, wallet_id),
+        receipt_uri = $receipt_uri,
+        occurred_at = COALESCE($occurred_at, occurred_at),
+        updated_at  = CURRENT_TIMESTAMP
+      WHERE id = $id
+    `)
+    await statement.executeAsync({
+      $id: id,
+      $amount: data.amount ?? null,
+      $observation: data.observation ?? null,
+      $category: data.category ?? null,
+      $wallet_id: data.wallet_id ?? null,
+      $receipt_uri: data.receipt_uri ?? null,
+      $occurred_at: data.occurred_at ?? null,
+    })
+  }
+
+  async function show(id: number) {
+    return database.getFirstAsync<TransactionResponse & {
+      target_id: number
+      wallet_id: number | null
+      occurred_at: string
+    }>(
+      `SELECT
+         id, target_id, amount, observation, category,
+         wallet_id, receipt_uri, occurred_at
+       FROM transactions WHERE id = ?`,
+      [id],
+    )
   }
 
   async function listTransactionsByTargetId(id: number) {
     try {
       const transactions = await database.getAllAsync<TransactionResponse>(
-        `
-          SELECT id, target_id, amount, observation, category, created_at AS createdAt
-          FROM transactions
-          WHERE target_id = ?
-          ORDER BY createdAt DESC
-        `,
+        `SELECT
+           id, target_id, amount, observation, category,
+           wallet_id, receipt_uri,
+           occurred_at AS occurredAt,
+           created_at  AS createdAt
+         FROM transactions
+         WHERE target_id = ?
+         ORDER BY occurredAt DESC`,
         [id],
       )
-
       return transactions
     } catch (err) {
       console.error('ERRO no getAllAsync:', err)
@@ -38,26 +82,8 @@ export function useTransactionDatabase() {
   }
 
   async function remove(id: number) {
-    const statement = await database.prepareAsync(`
-      DELETE FROM transactions WHERE id = $id
-    `)
-
-    await statement.executeAsync({
-      $id: id,
-    })
-  }
-
-  async function dropTable() {
-    const statement = await database.prepareAsync(`
-      DROP TABLE IF EXISTS transactions
-    `)
-    await statement.executeAsync()
-  }
-
-  async function migrate() {
-    await database.execAsync(`
-      ALTER TABLE transactions ADD COLUMN category TEXT;
-    `)
+    const statement = await database.prepareAsync(`DELETE FROM transactions WHERE id = $id`)
+    await statement.executeAsync({ $id: id })
   }
 
   async function summary() {
@@ -72,12 +98,12 @@ export function useTransactionDatabase() {
   async function summaryByCategory() {
     try {
       const result = await database.getAllAsync<{ category: string; total: number }>(`
-        SELECT 
+        SELECT
           COALESCE(category, 'Sem categoria') as category,
           SUM(amount) as total
-        FROM transactions 
-        WHERE amount < 0 
-        GROUP BY category 
+        FROM transactions
+        WHERE amount < 0
+        GROUP BY category
         ORDER BY total ASC
       `)
       return result
@@ -87,13 +113,29 @@ export function useTransactionDatabase() {
     }
   }
 
+  async function countAll(): Promise<number> {
+    const row = await database.getFirstAsync<{ n: number }>(
+      `SELECT COUNT(*) AS n FROM transactions`,
+    )
+    return row?.n ?? 0
+  }
+
+  async function distinctDayCount(): Promise<number> {
+    const row = await database.getFirstAsync<{ n: number }>(
+      `SELECT COUNT(DISTINCT DATE(occurred_at)) AS n FROM transactions`,
+    )
+    return row?.n ?? 0
+  }
+
   return {
     create,
+    update,
+    show,
     remove,
     summary,
     summaryByCategory,
     listTransactionsByTargetId,
-    dropTable,
-    migrate,
+    countAll,
+    distinctDayCount,
   }
 }

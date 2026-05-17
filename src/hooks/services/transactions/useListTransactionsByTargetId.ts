@@ -14,10 +14,11 @@ export function useListTransactionsByTargetId(id: number) {
       return res.map((item) => ({
         id: item.id,
         value: numberToCurrency(item.amount),
-        date: formatDate(item.createdAt),
+        date: formatDate(item.occurredAt ?? item.createdAt),
         description: item.observation,
         type: item.amount > 0 ? TransactionTypes.Input : TransactionTypes.Output,
         category: item.category,
+        receipt_uri: item.receipt_uri,
       }))
     },
     enabled: !!id,

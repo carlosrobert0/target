@@ -26,7 +26,7 @@ export function Progress({ data }: Props) {
       <View className="my-4">
         <View
           className={`h-1 bg-blue-500 z-50 rounded-full rounded-r-none`}
-          style={{ width: `${data.percentage}` }}
+          style={{ width: data.percentage as `${number}%` }}
         />
         <View className="h-1 bg-gray-300 -mt-1 rounded-full" />
       </View>

@@ -28,7 +28,9 @@
       "Bash(grep -q \"^\\\\.env$\" D:/target/.gitignore)",
       "Bash(rm -f src/lib/supabase.ts src/contexts/AuthContext.tsx src/hooks/useSyncEngine.ts .env)",
       "Bash(rm -rf src/app/auth src/sync db/supabase)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(grep -E \"^.gitignore$\")",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
