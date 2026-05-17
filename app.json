@@ -3,7 +3,7 @@
     "name": "cofrin",
     "slug": "cofrin",
     "scheme": "cofrin",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "userInterfaceStyle": "automatic",
     "android": {
       "package": "com.carlos.cofrin",
