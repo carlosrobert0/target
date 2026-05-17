@@ -1,0 +1,26 @@
+{
+  "name": "cofrin-db",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres",
+    "db:psql": "docker compose exec postgres psql -U cofrin -d cofrin",
+    "db:reset": "docker compose down -v && docker compose up -d",
+    "db:schema": "docker compose exec -T postgres psql -U cofrin -d cofrin < schema.sql",
+    "db:migrate": "ts-node migrate-from-sqlite.ts"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "dotenv": "^16.4.5",
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.10",
+    "@types/node": "^20.0.0",
+    "@types/pg": "^8.11.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.0"
+  }
+}
