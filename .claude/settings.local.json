@@ -30,7 +30,9 @@
       "Bash(rm -rf src/app/auth src/sync db/supabase)",
       "Bash(git add *)",
       "Bash(grep -E \"^.gitignore$\")",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(eas --version)",
+      "Bash(eas whoami *)"
     ]
   }
 }

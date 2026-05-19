@@ -26,6 +26,16 @@
       "expo-font",
       "expo-sqlite",
       [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableProguardInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true,
+            "extraProguardRules": "-keep class com.facebook.hermes.unicode.** { *; }\n-keep class com.facebook.jni.** { *; }\n-keep class expo.modules.sqlite.** { *; }"
+          }
+        }
+      ],
+      [
         "expo-notifications",
         {
           "color": "#3D44CD"
