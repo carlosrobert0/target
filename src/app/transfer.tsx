@@ -56,7 +56,10 @@ export default function Transfer() {
         subtitle="Mova saldo entre carteiras sem afetar suas metas."
       />
 
-      <ScrollView className="mt-6" contentContainerStyle={{ gap: 20, paddingBottom: 32 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="mt-6"
+        contentContainerStyle={{ gap: 20, paddingBottom: 32 }}>
         <WalletSection
           label="De"
           wallets={wallets ?? []}
@@ -149,7 +152,10 @@ function WalletSection({
   return (
     <View>
       <Text className="font-inter text-sm text-gray-600 mb-2">{label}</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ gap: 8 }}>
         {wallets.map((w) => {
           const disabled = w.id === excludeId
           const selected = w.id === selectedId
@@ -159,7 +165,7 @@ function WalletSection({
               disabled={disabled}
               onPress={() => onSelect(w.id)}
               className={`flex-row items-center gap-2 px-4 py-2 rounded-xl ${
-                selected ? COLOR_DOT[w.color] ?? 'bg-blue-500' : 'bg-gray-100 dark:bg-gray-800'
+                selected ? (COLOR_DOT[w.color] ?? 'bg-blue-500') : 'bg-gray-100 dark:bg-gray-800'
               }`}
               style={{ opacity: disabled ? 0.3 : 1 }}>
               <Text

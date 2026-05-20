@@ -4,10 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useLocalSearchParams } from 'expo-router'
 
 import { PageHeader } from '@/components/PageHeader'
-import {
-  TransactionForm,
-  type TransactionFormValues,
-} from '@/components/TransactionForm'
+import { TransactionForm, type TransactionFormValues } from '@/components/TransactionForm'
 import { TransactionTypes } from '@/utils/TransactionTypes'
 import { useTransactionDatabase } from '@/database/useTransactionDatabase'
 import { useTagDatabase } from '@/database/useTagDatabase'
@@ -73,7 +70,10 @@ export default function EditTransaction() {
       <StatusBar barStyle="dark-content" translucent />
       <PageHeader title="Editar transação" subtitle="Ajuste os campos e salve." />
 
-      <ScrollView className="mt-8" contentContainerStyle={{ paddingBottom: 32 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="mt-8"
+        contentContainerStyle={{ paddingBottom: 32 }}>
         <TransactionForm
           initial={initial}
           submitting={isPending}

@@ -41,7 +41,10 @@ export default function Settings() {
       <StatusBar barStyle="dark-content" translucent />
       <PageHeader title="Configurações" subtitle="Notificações e preferências do app." />
 
-      <ScrollView className="mt-6" contentContainerStyle={{ gap: 24, paddingBottom: 32 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="mt-6"
+        contentContainerStyle={{ gap: 24, paddingBottom: 32 }}>
         <View className="gap-3">
           <Text className="font-inter font-bold text-base text-black">Atalhos</Text>
           <NavRow

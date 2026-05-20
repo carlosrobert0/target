@@ -52,7 +52,7 @@ export default function RootLayout() {
         <SQLiteProvider onInit={migrate} databaseName="cofrin.db" useSuspense>
           <AppBootstrap />
           <SafeAreaView
-            className="flex-1 justify-center items-center bg-background dark:bg-gray-900"
+            className="flex-1 bg-background dark:bg-gray-900"
             edges={['bottom']}>
             <Slot />
           </SafeAreaView>

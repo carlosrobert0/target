@@ -40,13 +40,13 @@ export default function NewTarget() {
   }
 
   return (
-    <SafeAreaView
-      className="size-full px-6 bg-background dark:bg-gray-900"
-      edges={['top']}>
+    <SafeAreaView className="size-full px-6 bg-background dark:bg-gray-900" edges={['top']}>
       <StatusBar barStyle="dark-content" translucent />
       <PageHeader title="" subtitle="Economize para alcançar sua meta financeira." />
 
-      <ScrollView contentContainerStyle={{ gap: 24, paddingTop: 24, paddingBottom: 32 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ gap: 24, paddingTop: 24, paddingBottom: 32 }}>
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
@@ -76,9 +76,7 @@ export default function NewTarget() {
         />
 
         <View>
-          <Text className="font-inter text-sm text-gray-600 mb-2">
-            Prazo (opcional)
-          </Text>
+          <Text className="font-inter text-sm text-gray-600 mb-2">Prazo (opcional)</Text>
           <TouchableOpacity
             className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 flex-row items-center justify-between"
             onPress={() => setShowDate(true)}>

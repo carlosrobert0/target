@@ -38,7 +38,7 @@ export function CategoriesModal({
           </TouchableOpacity>
         </View>
 
-        <ScrollView className="flex-1 p-6">
+        <ScrollView showsVerticalScrollIndicator={false} className="flex-1 p-6">
           <Text className="text-base text-gray-600 mb-6 leading-6">
             Selecione as categorias que pertencem a este grupo. Cada categoria pode pertencer a
             apenas um grupo.
@@ -55,27 +55,30 @@ export function CategoriesModal({
                 key={category}
                 onPress={() => editingGroup && onToggleCategory(category)}
                 className={`flex-row items-center p-4 mb-3 rounded-xl  border 
-                  ${isSelected
-                    ? 'bg-blue-50 border-blue-200'
-                    : isUsedElsewhere
-                      ? 'bg-gray-50 border-gray-200 opacity-60'
-                      : 'bg-white border-gray-200'
+                  ${
+                    isSelected
+                      ? 'bg-blue-50 border-blue-200'
+                      : isUsedElsewhere
+                        ? 'bg-gray-50 border-gray-200 opacity-60'
+                        : 'bg-white border-gray-200'
                   }`}
                 disabled={isUsedElsewhere && !isSelected}>
                 <View
-                  className={`w-6 h-6 rounded border-2 mr-4 items-center justify-center ${isSelected ? 'bg-blue-500 border-blue-500' : 'border-gray-300'
-                    }`}>
+                  className={`w-6 h-6 rounded border-2 mr-4 items-center justify-center ${
+                    isSelected ? 'bg-blue-500 border-blue-500' : 'border-gray-300'
+                  }`}>
                   {isSelected && <Feather name="check" size={14} color="white" />}
                 </View>
 
                 <View className="flex-1">
                   <Text
-                    className={`font-medium ${isSelected
+                    className={`font-medium ${
+                      isSelected
                         ? 'text-blue-700'
                         : isUsedElsewhere
                           ? 'text-gray-500'
                           : 'text-gray-800'
-                      }`}>
+                    }`}>
                     {category}
                   </Text>
                   {isUsedElsewhere && !isSelected && (

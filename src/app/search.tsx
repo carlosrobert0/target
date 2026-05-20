@@ -13,7 +13,10 @@ import { Feather } from '@expo/vector-icons'
 
 import { PageHeader } from '@/components/PageHeader'
 import { TagPicker } from '@/components/TagPicker'
-import { useSearchTransactions, type SearchFilters } from '@/hooks/services/transactions/useSearchTransactions'
+import {
+  useSearchTransactions,
+  type SearchFilters,
+} from '@/hooks/services/transactions/useSearchTransactions'
 import { TransactionCategories } from '@/utils/TransactionCategories'
 import { numberToCurrency } from '@/utils/numberToCurrency'
 import { colors } from '@/theme/colors'
@@ -55,7 +58,7 @@ export default function Search() {
         </View>
 
         {showFilters && (
-          <ScrollView className="max-h-72">
+          <ScrollView className="max-h-72" showsVerticalScrollIndicator={false}>
             <View className="gap-3 pb-3">
               <View>
                 <Text className="font-inter text-sm text-gray-600 mb-1">Tipo</Text>
@@ -120,7 +123,9 @@ export default function Search() {
       <FlatList
         data={data}
         keyExtractor={(item) => String(item.id)}
-        contentContainerStyle={{ paddingVertical: 16, gap: 8 }}
+        style={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingVertical: 16, gap: 8, flexGrow: 1 }}
         ListEmptyComponent={
           <Text className="font-inter text-gray-500 text-center mt-12">
             {isLoading ? 'Buscando...' : 'Nenhuma transação encontrada.'}

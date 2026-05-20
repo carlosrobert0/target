@@ -36,12 +36,14 @@ export default function RecurringList() {
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
+        style={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <Text className="font-inter text-gray-500 text-center mt-12">
             Nenhuma recorrência cadastrada.
           </Text>
         }
-        contentContainerStyle={{ paddingVertical: 16, gap: 12 }}
+        contentContainerStyle={{ paddingVertical: 16, gap: 12, flexGrow: 1 }}
         renderItem={({ item }) => {
           const isIncome = item.rawAmount > 0
           return (

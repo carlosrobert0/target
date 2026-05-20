@@ -11,8 +11,18 @@ import { useImportCSV } from '@/hooks/services/export/useImportCSV'
 import { colors } from '@/theme/colors'
 
 const MONTH_LABELS = [
-  'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
-  'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez',
+  'Jan',
+  'Fev',
+  'Mar',
+  'Abr',
+  'Mai',
+  'Jun',
+  'Jul',
+  'Ago',
+  'Set',
+  'Out',
+  'Nov',
+  'Dez',
 ]
 
 export default function Export() {
@@ -35,7 +45,10 @@ export default function Export() {
       <StatusBar barStyle="dark-content" translucent />
       <PageHeader title="Exportar e importar" subtitle="Leve seus dados pra onde quiser." />
 
-      <ScrollView className="mt-6" contentContainerStyle={{ gap: 24, paddingBottom: 32 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="mt-6"
+        contentContainerStyle={{ gap: 24, paddingBottom: 32 }}>
         <View className="gap-2">
           <Text className="font-inter text-sm text-gray-600">Período</Text>
           <View className="flex-row gap-2 items-center">
@@ -77,8 +90,8 @@ export default function Export() {
         <View className="gap-3">
           <Text className="font-inter font-bold text-base text-black">Importar</Text>
           <Text className="font-inter text-xs text-gray-500">
-            Formato CSV com cabeçalho: id, data, meta_id, meta, valor, categoria, descricao.
-            Valores negativos = gastos.
+            Formato CSV com cabeçalho: id, data, meta_id, meta, valor, categoria, descricao. Valores
+            negativos = gastos.
           </Text>
           <Button
             title="Selecionar arquivo CSV"

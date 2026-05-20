@@ -60,6 +60,7 @@ export function Select({
           <FlatList
             data={options}
             className="flex-1 w-full"
+            showsVerticalScrollIndicator={false}
             keyExtractor={(item) => item.value}
             renderItem={({ item }) => (
               <TouchableOpacity

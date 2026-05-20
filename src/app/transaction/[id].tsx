@@ -33,7 +33,10 @@ export default function NewTransaction() {
         subtitle="A cada valor guardado você fica mais próximo da sua meta. Se esforce para guardar e evitar retirar."
       />
 
-      <ScrollView className="mt-8" contentContainerStyle={{ paddingBottom: 32 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="mt-8"
+        contentContainerStyle={{ paddingBottom: 32 }}>
         <TransactionForm submitting={isPending} onSubmit={handleSave} />
       </ScrollView>
     </SafeAreaView>

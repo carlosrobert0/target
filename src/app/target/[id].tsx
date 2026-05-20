@@ -9,15 +9,7 @@ import { useRemoveTargetById } from '@/hooks/services/targets/useRemoveTargetByI
 import { useUpdateTargetById } from '@/hooks/services/targets/useUpdateTargetById'
 import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { Controller, useForm } from 'react-hook-form'
-import {
-  Alert,
-  Platform,
-  ScrollView,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Alert, Platform, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Feather } from '@expo/vector-icons'
 import DateTimePicker, { type DateTimePickerEvent } from '@react-native-community/datetimepicker'
@@ -65,9 +57,7 @@ export default function TargetEditing() {
   }
 
   return (
-    <SafeAreaView
-      className="size-full px-6 bg-background dark:bg-gray-900"
-      edges={['top']}>
+    <SafeAreaView className="size-full px-6 bg-background dark:bg-gray-900" edges={['top']}>
       <StatusBar barStyle="dark-content" translucent />
       <PageHeader
         title="Meta"
@@ -78,7 +68,9 @@ export default function TargetEditing() {
         }}
       />
 
-      <ScrollView contentContainerStyle={{ gap: 24, paddingTop: 24, paddingBottom: 32 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ gap: 24, paddingTop: 24, paddingBottom: 32 }}>
         <Controller
           control={control}
           name="name"

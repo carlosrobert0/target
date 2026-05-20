@@ -31,7 +31,7 @@ export function ConfigurationModal({
           </TouchableOpacity>
         </View>
 
-        <ScrollView className="flex-1 p-6">
+        <ScrollView showsVerticalScrollIndicator={false} className="flex-1 p-6">
           <Text className="text-base text-gray-600 mb-6 leading-6">
             Personalize as categorias, porcentagens e descrições conforme suas necessidades.
           </Text>

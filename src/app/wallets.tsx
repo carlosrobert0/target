@@ -16,10 +16,7 @@ import { router } from 'expo-router'
 import { PageHeader } from '@/components/PageHeader'
 import { Button } from '@/components/Button'
 import { useListWalletsWithBalance } from '@/hooks/services/wallets/useListWallets'
-import {
-  useArchiveWallet,
-  useCreateWallet,
-} from '@/hooks/services/wallets/useCreateWallet'
+import { useArchiveWallet, useCreateWallet } from '@/hooks/services/wallets/useCreateWallet'
 import { useListTransfers } from '@/hooks/services/transfers/useListTransfers'
 import { colors } from '@/theme/colors'
 
@@ -68,9 +65,7 @@ export default function Wallets() {
   const recentTransfers = transfers?.slice(0, 5) ?? []
 
   return (
-    <SafeAreaView
-      className="flex-1 px-6 bg-background dark:bg-gray-900"
-      edges={['top']}>
+    <SafeAreaView className="flex-1 px-6 bg-background dark:bg-gray-900" edges={['top']}>
       <StatusBar barStyle="dark-content" translucent />
       <PageHeader
         title="Carteiras"
@@ -78,8 +73,10 @@ export default function Wallets() {
       />
 
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingVertical: 16, gap: 16, paddingBottom: 32 }}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={data}
           scrollEnabled={false}
           keyExtractor={(w) => String(w.id)}
@@ -112,10 +109,7 @@ export default function Wallets() {
           )}
         />
 
-        <Button
-          title="Nova transferência"
-          onPress={() => router.push('/transfer')}
-        />
+        <Button title="Nova transferência" onPress={() => router.push('/transfer')} />
 
         {recentTransfers.length > 0 && (
           <View className="gap-2">
@@ -135,9 +129,7 @@ export default function Wallets() {
                     {tr.observation ? ` · ${tr.observation}` : ''}
                   </Text>
                 </View>
-                <Text className="font-inter font-bold text-sm text-blue-500">
-                  {tr.amountLabel}
-                </Text>
+                <Text className="font-inter font-bold text-sm text-blue-500">{tr.amountLabel}</Text>
               </View>
             ))}
           </View>

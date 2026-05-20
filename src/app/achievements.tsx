@@ -32,7 +32,9 @@ export default function Achievements() {
       <FlatList
         data={data}
         keyExtractor={(a) => a.key}
-        contentContainerStyle={{ paddingVertical: 16, gap: 8 }}
+        style={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingVertical: 16, gap: 8, flexGrow: 1 }}
         renderItem={({ item }) => (
           <View
             className="bg-gray-100 rounded-2xl p-3 flex-row items-center gap-3"

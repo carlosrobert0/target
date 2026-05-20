@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react'
-import { StatusBar, View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
+import {
+  StatusBar,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native'
 import { router, useLocalSearchParams } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Controller, useForm } from 'react-hook-form'
@@ -80,7 +87,10 @@ export default function RecurringForm() {
   useEffect(() => {
     if (isNew || !id) return
     show(Number(id)).then((rec) => {
-      if (!rec) { router.back(); return }
+      if (!rec) {
+        router.back()
+        return
+      }
       const isExpense = rec.amount < 0
       reset({
         target_id: rec.target_id,
@@ -133,7 +143,10 @@ export default function RecurringForm() {
         subtitle="Lançamentos automáticos no intervalo escolhido."
       />
 
-      <ScrollView className="mt-6" contentContainerStyle={{ gap: 16, paddingBottom: 24 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="mt-6"
+        contentContainerStyle={{ gap: 16, paddingBottom: 24 }}>
         <Controller
           control={control}
           name="type"
