@@ -32,7 +32,10 @@
       "Bash(grep -E \"^.gitignore$\")",
       "Bash(git commit -m ' *)",
       "Bash(eas --version)",
-      "Bash(eas whoami *)"
+      "Bash(eas whoami *)",
+      "Bash(git diff *)",
+      "Bash(eas build:list --platform android --profile development --limit 3 --non-interactive)",
+      "Bash(eas build:list --platform android --limit 5 --non-interactive)"
     ]
   }
 }
