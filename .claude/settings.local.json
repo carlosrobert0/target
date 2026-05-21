@@ -35,7 +35,13 @@
       "Bash(eas whoami *)",
       "Bash(git diff *)",
       "Bash(eas build:list --platform android --profile development --limit 3 --non-interactive)",
-      "Bash(eas build:list --platform android --limit 5 --non-interactive)"
+      "Bash(eas build:list --platform android --limit 5 --non-interactive)",
+      "Bash(eas build:cancel dc492532-6bc1-40a2-8bce-e729d1c5299c --non-interactive)",
+      "Bash(git commit *)",
+      "Bash(mkdir -p /d/cofrin-web/app/privacidade /d/cofrin-web/public)",
+      "Read(//d//**)",
+      "Bash(echo \"---exit: $?\")",
+      "Bash(npx next *)"
     ]
   }
 }

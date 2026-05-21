@@ -24,7 +24,7 @@ export function List<T>({
   ...rest
 }: Props<T>) {
   return (
-    <View className="gap-4 max-h-[400px] overflow-auto" style={containerStyle}>
+    <View className="flex-1 min-h-0 gap-4" style={containerStyle}>
       <Text className="font-inter font-medium text-base text-black pb-4 border-b border-gray-200">
         {title}
       </Text>
@@ -32,8 +32,9 @@ export function List<T>({
       <FlatList
         data={data}
         renderItem={renderItem}
+        style={{ flex: 1 }}
         ItemSeparatorComponent={() => <Separator color={colors.gray[200]} />}
-        contentContainerStyle={{ paddingBottom: 72, gap: 16 }}
+        contentContainerStyle={{ paddingBottom: 16, gap: 16, flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={<Text className="text-center text-gray-500">{emptyMessage}</Text>}
         {...rest}
