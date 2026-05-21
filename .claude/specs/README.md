@@ -12,7 +12,8 @@ Each skill is a `SKILL.md` with a `name` and `description`. The description tell
 | `add-transaction-category`  | Adding / renaming / removing a transaction category                     |
 | `add-screen`                | Creating a new Expo Router route                                        |
 | `sqlite-migration`          | Changing the SQLite schema (columns, constraints, table rebuilds)       |
-| `eas-build`                 | Building or submitting via EAS                                          |
+| `eas-build`                 | Building a new binary or submitting to Play Store (needs native change) |
+| `eas-update`                | OTA: shipping a JS/asset hotfix without a new build                     |
 | `format-currency-ptbr`      | Touching code that displays or accepts monetary values                  |
 | `pre-commit-check`          | Before committing or opening a PR                                       |
 
