@@ -41,7 +41,9 @@
       "Bash(mkdir -p /d/cofrin-web/app/privacidade /d/cofrin-web/public)",
       "Read(//d//**)",
       "Bash(echo \"---exit: $?\")",
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "Bash(eas build:cancel 67547b5b-a38b-4e4f-9a1c-93269e528bab)",
+      "Bash(eas update:configure --non-interactive)"
     ]
   }
 }
